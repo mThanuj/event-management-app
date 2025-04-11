@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchEvents, updateEvent } from "../redux/actions/event.actions.js";
+import {
+  deleteEvent,
+  fetchEvents,
+  updateEvent,
+} from "../redux/actions/event.actions.js";
 import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
@@ -9,6 +13,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useMemo } from "react";
 import { categories, colors, icons } from "../lib/constants.js";
 import { useState } from "react";
+import { TrashIcon } from "lucide-react";
 
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(BigCalendar);
@@ -25,16 +30,25 @@ const CustomEvent = ({ event }) => {
   const categoryIndex = categories.indexOf(event.category);
   const eventColor = colors[categoryIndex];
   const eventIcon = icons[categoryIndex];
+  const dispatch = useDispatch();
+  const handleDelete = (event) => {
+    dispatch(deleteEvent(event._id)).then(() => {
+      dispatch(fetchEvents());
+    });
+  };
 
   return (
     <div
-      className="h-full p-1 rounded-lg shadow-sm flex flex-col justify-center"
+      className="h-full p-1 rounded-lg relative shadow-sm flex flex-col justify-center"
       style={{
         backgroundColor: `${eventColor}30`,
         borderLeft: `4px solid ${eventColor}`,
         height: "100%",
       }}
     >
+      <button onClick={() => handleDelete(event)} className="cursor-pointer">
+        <TrashIcon className="absolute top-2 right-2" size={30} />
+      </button>
       <div className="flex items-center gap-1">
         <span className="text-sm">{eventIcon}</span>
         <strong className="text-xs" style={{ color: eventColor }}>
@@ -65,15 +79,15 @@ const eventStyleGetter = (event) => {
   };
 };
 
-const Calendar = () => {
+const Calendar = ({ category }) => {
   const dispatch = useDispatch();
   const { events, loading } = useSelector((state) => state.eventStore);
   const [currentView, setCurrentView] = useState("month");
   const [currentDate, setCurrentDate] = useState(moment().toDate());
 
   useEffect(() => {
-    dispatch(fetchEvents());
-  }, [dispatch]);
+    dispatch(fetchEvents(category));
+  }, [dispatch, category]);
 
   const handleNavigate = (newDate) => {
     setCurrentDate(newDate);
@@ -105,7 +119,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className="w-3/4 h-3/4">
+    <div className="w-full h-full">
       {loading ? (
         <p>Loading events...</p>
       ) : (

@@ -37,8 +37,17 @@ module.exports.createEvent = async (req, res) => {
 };
 
 module.exports.getAllEvents = async (req, res) => {
+  const { category } = req.query;
+
   try {
-    const events = await Event.find();
+    let events = [];
+
+    if (category == "") {
+      events = await Event.find({});
+    } else {
+      events = await Event.find({ category });
+    }
+
     res.status(200).json({
       success: true,
       message: "Events fetched successfully",
@@ -72,6 +81,24 @@ module.exports.updateEvent = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Event updated successfully",
+      event,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+module.exports.deleteEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const event = await Event.findByIdAndDelete(id);
+
+    res.status(200).json({
+      success: true,
+      message: "Event deleted successfully",
       event,
     });
   } catch (error) {

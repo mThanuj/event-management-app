@@ -53,7 +53,6 @@ const Modal = ({ show, setShow }) => {
             }
           />
         </div>
-
         <div className="flex flex-col">
           <label
             htmlFor="category"
@@ -75,7 +74,6 @@ const Modal = ({ show, setShow }) => {
             ))}
           </select>
         </div>
-
         <div className="flex flex-col">
           <label
             htmlFor="startTime"
@@ -93,7 +91,6 @@ const Modal = ({ show, setShow }) => {
             }
           />
         </div>
-
         <div className="flex flex-col">
           <label
             htmlFor="endTime"
@@ -111,10 +108,9 @@ const Modal = ({ show, setShow }) => {
             }
           />
         </div>
-
         <button
           type="submit"
-          className="w-full mt-4 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-all duration-200 font-semibold"
+          className="w-full cursor-pointer mt-4 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-all duration-200 font-semibold"
           disabled={loading}
         >
           {loading ? "Creating..." : "Create Event"}
