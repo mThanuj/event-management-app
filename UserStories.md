@@ -18,12 +18,12 @@
      Ensure 15-minute events (e.g., 8:15–8:30 AM) are clearly visible.
 - [x] 6. **Expand/Collapse Events**  
      Resize events by dragging their edges to adjust duration.
-- [ ] 7. **Delete Events**  
+- [x] 7. **Delete Events**  
      Remove unwanted events directly from the calendar.
 
 ### Side Panel & Goals Integration
 
-- [ ] 8. **Goals and Tasks Panel**  
+- [x] 8. **Goals and Tasks Panel**  
      Display Goals and associated Tasks (fetched from a database) on the left.
 - [x] 9. **Color-Coded Tasks**  
      Tasks inherit their parent Goal’s color (e.g., "Learn" tasks in blue).
