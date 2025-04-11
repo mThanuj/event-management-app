@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { createEvent } from "../redux/actions/event.actions";
+import { categories } from "../lib/constants";
 
 const Modal = ({ show, setShow }) => {
   const dispatch = useDispatch();
@@ -12,14 +13,6 @@ const Modal = ({ show, setShow }) => {
     startTime: new Date(),
     endTime: new Date(),
   });
-  const categories = [
-    "exercise",
-    "eating",
-    "work",
-    "relax",
-    "family",
-    "social",
-  ];
 
   if (!show) {
     return null;

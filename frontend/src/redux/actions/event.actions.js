@@ -49,6 +49,7 @@ export const fetchEvents = () => async (dispatch) => {
 
 export const updateEvent = (eventId, eventData) => async (dispatch) => {
   dispatch({ type: UPDATE_EVENTS_REQUEST });
+  console.log(eventData);
   try {
     const res = await axios.put(
       `http://localhost:3000/api/v1/events/${eventId}`,
