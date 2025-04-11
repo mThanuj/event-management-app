@@ -29,7 +29,10 @@ module.exports.createEvent = async (req, res) => {
       event,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -42,7 +45,10 @@ module.exports.getAllEvents = async (req, res) => {
       events,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -69,6 +75,9 @@ module.exports.updateEvent = async (req, res) => {
       event,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
