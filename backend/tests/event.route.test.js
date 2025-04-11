@@ -37,6 +37,36 @@ describe("POST /api/v1/events", () => {
     expect(response.body.message).toBe("Event created successfully");
     expect(response.body.event).toBeDefined();
   });
+
+  test("should return 400 if event data is invalid", async () => {
+    const eventData = {
+      title: "",
+      category: "work",
+      startTime: new Date(),
+      endTime: new Date(Date.now() + 1000 * 60 * 60),
+    };
+
+    const response = await request(app).post("/api/v1/events").send(eventData);
+
+    expect(response.status).toBe(400);
+    expect(response.body.success).toBe(false);
+    expect(response.body.message).toBe("Event data is invalid");
+  });
+
+  test("should return 400 if the end time is before the start time", async () => {
+    const eventData = {
+      title: "Test Event",
+      category: "work",
+      startTime: new Date(Date.now() + 1000 * 60 * 60),
+      endTime: new Date(),
+    };
+
+    const response = await request(app).post("/api/v1/events").send(eventData);
+
+    expect(response.status).toBe(400);
+    expect(response.body.success).toBe(false);
+    expect(response.body.message).toBe("End time must be after start time");
+  });
 });
 
 describe("GET /api/v1/events", () => {

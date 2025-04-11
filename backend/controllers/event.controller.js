@@ -3,6 +3,20 @@ const Event = require("../models/event.model.js");
 module.exports.createEvent = async (req, res) => {
   try {
     const { title, category, startTime, endTime } = req.body;
+    if (!title || !category || !startTime || !endTime) {
+      return res.status(400).json({
+        success: false,
+        message: "Event data is invalid",
+      });
+    }
+
+    if (startTime >= endTime) {
+      return res.status(400).json({
+        success: false,
+        message: "End time must be after start time",
+      });
+    }
+
     const event = await Event.create({
       title,
       category,
