@@ -114,7 +114,7 @@ const Calendar = ({ category }) => {
     };
 
     dispatch(updateEvent(event._id, updatedEvent)).then(() => {
-      dispatch(fetchEvents());
+      dispatch(fetchEvents(""));
     });
   };
 
@@ -132,7 +132,6 @@ const Calendar = ({ category }) => {
           localizer={localizer}
           views={["month", "week", "day"]}
           toolbar={true}
-          selectable
           draggable
           onEventDrop={handleUpdate}
           onEventResize={handleUpdate}
