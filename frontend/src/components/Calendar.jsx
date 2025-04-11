@@ -33,7 +33,7 @@ const CustomEvent = ({ event }) => {
   const dispatch = useDispatch();
   const handleDelete = (event) => {
     dispatch(deleteEvent(event._id)).then(() => {
-      dispatch(fetchEvents());
+      dispatch(fetchEvents(""));
     });
   };
 
