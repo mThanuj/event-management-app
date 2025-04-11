@@ -1,5 +1,5 @@
-import app from "./app.js";
-import connectDB from "./lib/db.js";
+const app = require("./app.js");
+const connectDB = require("./lib/db.js");
 
 const PORT = process.env.PORT;
 

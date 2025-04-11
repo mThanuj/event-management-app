@@ -1,6 +1,6 @@
-import { Event } from "../models/event.model.js";
+const Event = require("../models/event.model.js");
 
-export const createEvent = async (req, res) => {
+module.exports.createEvent = async (req, res) => {
   try {
     const { title, category, startTime, endTime } = req.body;
     const event = await Event.create({
@@ -19,7 +19,7 @@ export const createEvent = async (req, res) => {
   }
 };
 
-export const getAllEvents = async (req, res) => {
+module.exports.getAllEvents = async (req, res) => {
   try {
     const events = await Event.find();
     res.status(200).json({
@@ -32,7 +32,7 @@ export const getAllEvents = async (req, res) => {
   }
 };
 
-export const updateEvent = async (req, res) => {
+module.exports.updateEvent = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, category, startTime, endTime } = req.body;
