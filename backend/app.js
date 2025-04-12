@@ -1,12 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const eventRoutes = require("./routes/events.route.js");
+require("dotenv").config();
 
 const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.ORIGIN,
   }),
 );
 app.use(express.json());
