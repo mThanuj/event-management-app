@@ -16,13 +16,12 @@ export const DELETE_EVENT_REQUEST = "DELETE_EVENT_REQUEST";
 export const DELETE_EVENT_FAILURE = "DELETE_EVENT_FAILURE";
 export const DELETE_EVENT_SUCCESS = "DELETE_EVENT_SUCCESS";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 export const createEvent = (eventData) => async (dispatch) => {
   dispatch({ type: CREATE_EVENT_REQUEST });
   try {
-    const res = await axios.post(
-      "http://localhost:3000/api/v1/events",
-      eventData,
-    );
+    const res = await axios.post(`${backendUrl}/api/v1/events`, eventData);
     dispatch({
       type: CREATE_EVENT_SUCCESS,
       payload: res.data.event,
@@ -38,7 +37,7 @@ export const createEvent = (eventData) => async (dispatch) => {
 export const fetchEvents = (category) => async (dispatch) => {
   dispatch({ type: FETCH_EVENTS_REQUEST });
   try {
-    const res = await axios.get("http://localhost:3000/api/v1/events", {
+    const res = await axios.get(`${backendUrl}/api/v1/events`, {
       params: {
         category,
       },
@@ -59,7 +58,7 @@ export const updateEvent = (eventId, eventData) => async (dispatch) => {
   dispatch({ type: UPDATE_EVENTS_REQUEST });
   try {
     const res = await axios.put(
-      `http://localhost:3000/api/v1/events/${eventId}`,
+      `${backendUrl}/api/v1/events/${eventId}`,
       eventData,
     );
     dispatch({
@@ -77,9 +76,7 @@ export const updateEvent = (eventId, eventData) => async (dispatch) => {
 export const deleteEvent = (eventId) => async (dispatch) => {
   dispatch({ type: DELETE_EVENT_REQUEST });
   try {
-    const res = await axios.delete(
-      `http://localhost:3000/api/v1/events/${eventId}`,
-    );
+    const res = await axios.delete(`${backendUrl}/api/v1/events/${eventId}`);
     dispatch({
       type: DELETE_EVENT_SUCCESS,
       payload: res.data.event,
